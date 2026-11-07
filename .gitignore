@@ -222,6 +222,9 @@ week4_demo.json
 week4_player_check.json
 saved_score.txt
 
+# Secrets — real API keys live here, never commit this (see week7-8/README.md)
+config.py
+
 # Marimo
 marimo/_static/
 marimo/_lsp/

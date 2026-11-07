@@ -30,8 +30,9 @@ debugging Python for a problem Python didn't cause.
 > work the second you copy it. Move on to step 2 to check it properly. If it's not
 > ready yet, come back to it in a while instead of guessing at what's wrong.
 
-**Keep your key private.** Don't post it in chat, don't screenshot it, don't commit it
-to a public GitHub repo (more on this in step 5).
+**Keep your key private.** Don't post it in chat, don't screenshot it, and don't
+type it directly into `weather.py` — step 3 shows you where it actually goes so it
+never ends up on GitHub.
 
 ---
 
@@ -69,10 +70,28 @@ you'll waste time thinking your code is broken when it's actually the key.
 
 Your key works now, so the rest of this is just code.
 
-Create an empty file called `weather.py` in this folder — don't type anything into
-it yet. The prompt below creates the whole file for you, including a placeholder
-line for your key. If you paste your real key in first and then run the prompt,
-the AI will overwrite the file and your key will be gone again.
+Your API key is a secret, like a password. If it ends up written directly inside
+`weather.py`, and you later push that file to GitHub, anyone can see it and use
+your account. So before writing any code, the key goes in its own file that git
+is told to never commit.
+
+**Create your private key file:**
+
+1. In this folder, make a copy of `config_example.py`.
+2. Rename the copy to exactly `config.py`.
+3. Open `config.py` and replace the placeholder with your real key:
+   ```python
+   API_KEY = "paste_your_real_key_here"
+   ```
+
+That's it — `config.py` is already listed in this repo's `.gitignore`, so git
+will never track it or push it anywhere. You'll set up that same protection
+again later when you move this project to its own repo (see the last section).
+
+**Now build `weather.py`.** Create an empty file called `weather.py` in this
+folder — don't type anything into it yet. The prompt below writes the whole
+file for you, and it imports your key from `config.py` instead of containing
+the key itself, so nothing secret ever ends up in this file.
 
 Open your AI tool's chat — this could be GitHub Copilot Chat in VS Code, Cursor,
 Gemini, ChatGPT, or whatever you're using — and paste this prompt **exactly as
@@ -87,8 +106,9 @@ help you, no matter which tool you or they are using:
 > Create a Python file called weather.py that uses the requests library to talk to
 > the OpenWeatherMap current weather API.
 >
-> At the top: `import requests`, then two constants: `API_KEY = "YOUR_API_KEY_HERE"`
-> and `BASE_URL = "https://api.openweathermap.org/data/2.5/weather"`.
+> At the top: `import requests` and `from config import API_KEY` — the key comes
+> from config.py, do not write a real or placeholder key directly in this file.
+> Also add one constant: `BASE_URL = "https://api.openweathermap.org/data/2.5/weather"`.
 >
 > Write a function `get_weather(city)` that:
 > - Sends a GET request to BASE_URL using a `params` dict with q=city, appid=API_KEY,
@@ -114,21 +134,10 @@ help you, no matter which tool you or they are using:
 > ValueError and RuntimeError separately, and prints the error message instead of
 > crashing.
 
-When the AI is done, open `weather.py` and find this line near the top:
-
-```python
-API_KEY = "YOUR_API_KEY_HERE"
-```
-
-Replace `YOUR_API_KEY_HERE` with your real key, keeping the quotes:
-
-```python
-API_KEY = "paste_your_real_key_here"
-```
-
-This is the only line you should ever hand-edit in this file. If you ask the AI
-for more changes later and it regenerates the whole file, check this line didn't
-get reset back to the placeholder.
+When the AI is done, open `weather.py` and check the top of the file says
+`from config import API_KEY` — not a real key typed directly into the file. If
+the AI wrote the key into `weather.py` anyway, delete that line and ask it to
+import `API_KEY` from `config` instead.
 
 Run it:
 
@@ -224,7 +233,9 @@ Find your symptom in the left column.
 | Grey or white box appears behind text when the colour changes | Step 4 | Only `root.config(bg=...)` was updated, not every Label's `bg` | Ask the AI: "make sure every Label widget's bg is also updated to match the window background" |
 | The red error message never goes away, even after a real city works | Step 4 | Error label isn't cleared on a successful search | Ask the AI: "clear the error label's text at the start of a successful search" |
 | Everyone's `weather.py` looks completely different | Any step | The prompt was paraphrased instead of copied exactly | Re-paste the exact prompt from this README, word for word |
-| `RuntimeError: Invalid API key` after it worked before | Step 3 | A new AI prompt regenerated the whole file and reset `API_KEY` back to `"YOUR_API_KEY_HERE"` | Open `weather.py` and paste your real key back into the `API_KEY` line |
+| `ModuleNotFoundError: No module named 'config'` | Step 3 | `config.py` was never created, or it's named something else | Copy `config_example.py`, rename the copy to exactly `config.py`, add your key |
+| `ImportError: cannot import name 'API_KEY' from 'config'` | Step 3 | `config.py` exists but doesn't have an `API_KEY =` line, or it's spelled differently | Open `config.py` and check it has exactly `API_KEY = "your_key"` |
+| The AI wrote your real key directly into `weather.py` | Step 3 | The AI ignored the instruction to import from config | Delete the hardcoded key line, ask the AI to replace it with `from config import API_KEY` |
 
 If nothing here matches, compare your file line by line against `weather.py` /
 `app.py` in this folder — those are working reference versions.
@@ -234,9 +245,11 @@ If nothing here matches, compare your file line by line against `weather.py` /
 ## Reference files
 
 `weather.py` and `app.py` in this folder are working reference implementations.
-Build your own with the prompts above first. If something isn't matching after
-trying the Fixing table, compare your version against these line by line — don't
-just copy them over your own file.
+`config_example.py` shows the shape of the key file you need — copy it to
+`config.py` and fill in your real key, it won't run as-is. Build your own
+`weather.py`/`app.py` with the prompts above first. If something isn't matching
+after trying the Fixing table, compare your version against these line by line —
+don't just copy them over your own file.
 
 ---
 
@@ -261,21 +274,29 @@ its own repo, the way you'd save a real project.
    git clone PASTE_YOUR_URL_HERE
    cd weather-mood-app
    ```
-6. Copy `weather.py` and `app.py` from `python102/week7-8/` into this new
-   `weather-mood-app` folder. Drag and drop the files in Finder/Explorer, or run:
+6. **Before you copy anything else, protect your key.** Create a file called
+   `.gitignore` in this new folder with one line inside it:
+   ```
+   config.py
+   ```
+   This tells git to never track or push `config.py`, no matter what. Do this
+   now, before step 7 — not after.
+7. Copy `weather.py`, `app.py`, and `config.py` from `python102/week7-8/` into
+   this new `weather-mood-app` folder. Drag and drop the files in
+   Finder/Explorer, or run:
    ```bash
-   cp ~/code/python102/week7-8/weather.py ~/code/python102/week7-8/app.py .
+   cp ~/code/python102/week7-8/weather.py ~/code/python102/week7-8/app.py ~/code/python102/week7-8/config.py .
    ```
    (adjust the path to wherever your `python102` folder actually is)
-7. Open the new folder in VS Code: `code .` — this is now a separate project
+8. Open the new folder in VS Code: `code .` — this is now a separate project
    from `python102`.
-8. **Before you commit:** open `weather.py` and check your real API key isn't
-   about to go public. If this repo is or might become public, replace your real
-   key with `"YOUR_API_KEY_HERE"` before committing — you can always paste the
-   real one back in locally when you want to run it.
-9. Commit and push — this pushes to *your* new repo, not `python102`:
-   ```bash
-   git add .
-   git commit -m "Weather mood app"
-   git push
-   ```
+9. **Double-check before you commit:** run `git status`. `config.py` should
+   **not** appear in the list of files to be committed. If it does, your
+   `.gitignore` from step 6 isn't set up right — fix that before continuing.
+10. Commit and push — this pushes to *your* new repo, not `python102`, and
+    your real key never leaves your computer:
+    ```bash
+    git add .
+    git commit -m "Weather mood app"
+    git push
+    ```
