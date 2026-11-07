@@ -69,11 +69,10 @@ you'll waste time thinking your code is broken when it's actually the key.
 
 Your key works now, so the rest of this is just code.
 
-Create a file called `weather.py` in this folder. At the very top, add your real key:
-
-```python
-API_KEY = "paste_your_real_key_here"
-```
+Create an empty file called `weather.py` in this folder — don't type anything into
+it yet. The prompt below creates the whole file for you, including a placeholder
+line for your key. If you paste your real key in first and then run the prompt,
+the AI will overwrite the file and your key will be gone again.
 
 Open your AI tool's chat — this could be GitHub Copilot Chat in VS Code, Cursor,
 Gemini, ChatGPT, or whatever you're using — and paste this prompt **exactly as
@@ -114,6 +113,22 @@ help you, no matter which tool you or they are using:
 > dict on its own line, plus the mood. Wrap the call in a try/except that catches
 > ValueError and RuntimeError separately, and prints the error message instead of
 > crashing.
+
+When the AI is done, open `weather.py` and find this line near the top:
+
+```python
+API_KEY = "YOUR_API_KEY_HERE"
+```
+
+Replace `YOUR_API_KEY_HERE` with your real key, keeping the quotes:
+
+```python
+API_KEY = "paste_your_real_key_here"
+```
+
+This is the only line you should ever hand-edit in this file. If you ask the AI
+for more changes later and it regenerates the whole file, check this line didn't
+get reset back to the placeholder.
 
 Run it:
 
@@ -209,6 +224,7 @@ Find your symptom in the left column.
 | Grey or white box appears behind text when the colour changes | Step 4 | Only `root.config(bg=...)` was updated, not every Label's `bg` | Ask the AI: "make sure every Label widget's bg is also updated to match the window background" |
 | The red error message never goes away, even after a real city works | Step 4 | Error label isn't cleared on a successful search | Ask the AI: "clear the error label's text at the start of a successful search" |
 | Everyone's `weather.py` looks completely different | Any step | The prompt was paraphrased instead of copied exactly | Re-paste the exact prompt from this README, word for word |
+| `RuntimeError: Invalid API key` after it worked before | Step 3 | A new AI prompt regenerated the whole file and reset `API_KEY` back to `"YOUR_API_KEY_HERE"` | Open `weather.py` and paste your real key back into the `API_KEY` line |
 
 If nothing here matches, compare your file line by line against `weather.py` /
 `app.py` in this folder — those are working reference versions.
