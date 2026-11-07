@@ -59,7 +59,7 @@ If you see something else, use this table before touching any Python:
 | `curl: command not found` | Rare — usually an old Windows setup | Make sure you're using the VS Code terminal, not a separate Command Prompt. Ask your teacher if it persists. |
 | Nothing happens, it just hangs | No internet, or the network is blocking the request | Ask your teacher — this is a network problem, not a code problem. |
 
-Do not open Cursor and start prompting the AI until `curl` shows you real weather
+Do not open your AI tool and start prompting it until `curl` shows you real weather
 data with a `temp` in it. If `curl` doesn't work, your Python won't either, and
 you'll waste time thinking your code is broken when it's actually the key.
 
@@ -75,9 +75,11 @@ Create a file called `weather.py` in this folder. At the very top, add your real
 API_KEY = "paste_your_real_key_here"
 ```
 
-Open the AI chat (Cursor or Copilot) and paste this prompt **exactly as written** —
-don't paraphrase it. The more exact your prompt, the more your code will look like
-everyone else's, which makes it much easier for your teacher to help you:
+Open your AI tool's chat — this could be GitHub Copilot Chat in VS Code, Cursor,
+Gemini, ChatGPT, or whatever you're using — and paste this prompt **exactly as
+written**, don't paraphrase it. The more exact your prompt, the more your code
+will look like everyone else's, which makes it much easier for your teacher to
+help you, no matter which tool you or they are using:
 
 > Create a Python file called weather.py that uses the requests library to talk to
 > the OpenWeatherMap current weather API.
