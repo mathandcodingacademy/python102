@@ -1,7 +1,7 @@
-# Week 6 — Hands-On: Using AI Tools in VS Code / Cursor
+# Week 6 — Hands-On: Using AI Tools in VS Code
 #
 # This file is your practice ground for working WITH an AI coding tool.
-# We'll use Cursor (or GitHub Copilot if you have it).
+# Use whatever you have set up in VS Code — GitHub Copilot, or another AI assistant.
 #
 # GROUND RULES FOR TODAY:
 #   1. Don't just accept whatever the AI gives you — READ it first.
@@ -12,7 +12,7 @@
 # ACTIVITY 1: Inline Suggestions (10 min)
 # ============================================================
 # HOW: Write the comment below, then STOP TYPING.
-# Wait for Cursor/Copilot to suggest the function body.
+# Wait for your AI tool to suggest the function body.
 # Press Tab to accept. Then READ every line before running.
 
 # Write a function called celsius_to_fahrenheit that takes a

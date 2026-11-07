@@ -99,7 +99,9 @@ Copilot is an LLM (made by GitHub + OpenAI) trained specifically on public code.
 | **Copilot Chat** | Open the chat panel → ask questions, explain code, fix bugs |
 | **Edit / refactor** | Select code → ask Copilot to rewrite, simplify, or add error handling |
 
-> **In this course we use Cursor**, which works the same way but is built around AI from the start.
+> **In this course we use VS Code.** Some of you have GitHub Copilot built in; some
+> use other AI tools like Gemini alongside VS Code. They all work the same way:
+> you describe what you want, the AI suggests code, you read it before you accept it.
 
 ---
 

@@ -3,8 +3,9 @@
 **Math+Coding Academy** | mathcoding.ca
 
 This is the course repository for Python102. Students build three real AI-powered projects
-over the term, using AI coding tools (Cursor / GitHub Copilot) to write code — and
-developing the skills to read, verify, and fix what the AI produces.
+over the term, using AI tools in VS Code (mostly GitHub Copilot, some use other AI
+assistants) to write code — and developing the skills to read, verify, and fix what
+the AI produces.
 
 ---
 
@@ -26,7 +27,7 @@ Python 3.10+, VS Code, and Git should already be installed from Python101.
 | 3 | `week3/` | Error handling: `try/except`, `raise`, your own error type | 4 short lesson + your-turn pairs |
 | 4 | `week4/` | Modules: `math`, `random`, `datetime`, `json`, `os` | 4 short lesson + your-turn pairs |
 | 5 | `week5/` | Mini project (no AI): High Score Tracker | 5 short pairs, then run `05_app.py` |
-| 6 | `week6/` | Introduction to AI + using Copilot/Cursor in VS Code | 30 min deck + 30 min hands-on |
+| 6 | `week6/` | Introduction to AI + using AI tools in VS Code | 30 min deck + 30 min hands-on |
 | 7–8 | `week7-8/` | **Project: AI Weather Mood App** — live weather API + Tkinter GUI | Project guide + reference files |
 | 9–10 | `week9-10/` | **Project: AI Trash Sorter** — train your own model + webcam classifier | Project guide + reference file |
 | 11 | `week11/` | Debugging AI code — finding silent bugs, intro to `unittest` | Concept + lesson + exercise |
@@ -44,7 +45,7 @@ Different weeks use different file formats depending on what that week needs:
 | `README.md` | Every week | Concept explanation, instructions, and checkpoints for that week |
 | `01_lesson.py`, `01_your_turn.py`, ... | `week2/` through `week5/` | Short activities in order. Start at that week's `README.md`. Done when the file prints `PASSED`. |
 | `05_app.py` | `week5/` | The finished High Score Tracker. Run it after the week's activities pass. |
-| `hands_on.py` | `week6/` | In-class Copilot/Cursor activities |
+| `hands_on.py` | `week6/` | In-class AI tool activities |
 | `weather.py`, `app.py` | `week7-8/` | Reference implementations — build your own with AI first |
 | `sorter.py` | `week9-10/` | Reference implementation — build your own with AI first |
 
