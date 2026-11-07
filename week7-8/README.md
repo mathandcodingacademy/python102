@@ -70,6 +70,18 @@ you'll waste time thinking your code is broken when it's actually the key.
 
 Your key works now, so the rest of this is just code.
 
+**Install the `requests` library first.** This is the Python package that lets
+your code talk to the API, the same job `curl` just did from the terminal. In
+the VS Code terminal, run:
+
+```bash
+pip install requests
+```
+
+If that command isn't recognized, try `pip3 install requests` instead. You
+should see a line ending in `Successfully installed requests-...`. You only
+need to do this once on your computer, not every time you run `weather.py`.
+
 Your API key is a secret, like a password. If it ends up written directly inside
 `weather.py`, and you later push that file to GitHub, anyone can see it and use
 your account. So before writing any code, the key goes in its own file that git
@@ -224,7 +236,7 @@ Find your symptom in the left column.
 | Symptom | Where it happens | Cause | Fix |
 |---|---|---|---|
 | `{"cod":401,...}` from curl, or `RuntimeError: Invalid API key` in Python | Step 2 or 3 | Key has a typo, or it's less than 2 hours old | Re-copy the key exactly. If it's new, wait and try again. |
-| `ModuleNotFoundError: No module named 'requests'` | Step 3 | `requests` isn't installed | Run `pip install requests` in the terminal |
+| `ModuleNotFoundError: No module named 'requests'` | Step 3 | `requests` isn't installed, or was installed for a different Python than the one running your file | Run `pip install requests` in the terminal (try `pip3 install requests` if `pip` isn't recognized) |
 | `TypeError: list indices must be integers` | Step 3 | Code wrote `data['weather']['main']` instead of `data['weather'][0]['main']` | `weather` is a list. Add `[0]` before `['main']`. |
 | A fake city crashes with `NoneType` errors later in the program | Step 3 | `get_weather` returns `None` on error instead of raising | Ask the AI: "change get_weather to raise ValueError instead of returning None" |
 | The app window flashes open and closes immediately | Step 4 | Missing `root.mainloop()` | Add `root.mainloop()` as the very last line of the file |
