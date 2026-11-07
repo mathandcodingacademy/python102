@@ -9,6 +9,36 @@
 #   3. Every piece of AI code gets TESTED by you before you move on.
 
 # ============================================================
+# SETUP: Open Copilot Chat in VS Code
+# ============================================================
+# If you're using GitHub Copilot, open the chat panel one of these ways:
+#
+#   Option A — click the icon:
+#     Look at the top of the VS Code window (the title bar) for a chat /
+#     speech-bubble icon. Click it. A panel opens, usually on the right.
+#
+#   Option B — use the menu:
+#     Click "View" in the top menu bar → "Chat" → "Open Chat".
+#
+#   Option C — keyboard shortcut:
+#     Windows / Linux: Ctrl+Alt+I
+#     Mac:              Ctrl+Cmd+I
+#
+# First time only: you may see "Sign in to GitHub". Click it, approve in
+# your browser, then come back to VS Code — you should see your GitHub
+# username in the bottom-left corner when it worked.
+#
+# Don't see a chat icon anywhere? The extension isn't installed yet:
+#   1. Click the Extensions icon on the left sidebar (or Ctrl+Shift+X)
+#   2. Search "GitHub Copilot Chat"
+#   3. Click Install
+#   4. Reload VS Code if it asks you to
+#
+# Using a different AI tool (not Copilot)? Open whichever panel or
+# extension you normally use instead — the activities below work the
+# same way no matter which chat window you're typing into.
+
+# ============================================================
 # ACTIVITY 1: Inline Suggestions (10 min)
 # ============================================================
 # HOW: Write the comment below, then STOP TYPING.

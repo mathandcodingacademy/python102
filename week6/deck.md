@@ -105,6 +105,24 @@ Copilot is an LLM (made by GitHub + OpenAI) trained specifically on public code.
 
 ---
 
+## 🖱️ How to Open Copilot Chat in VS Code
+
+Three ways — pick whichever you see:
+
+| Way | How |
+|-----|-----|
+| **Click the icon** | Chat / speech-bubble icon at the top of the VS Code window |
+| **Use the menu** | `View` → `Chat` → `Open Chat` |
+| **Keyboard shortcut** | `Ctrl+Alt+I` (Windows/Linux) · `Ctrl+Cmd+I` (Mac) |
+
+> First time? You may see **"Sign in to GitHub"** — click it, approve in your
+> browser, then come back to VS Code.
+>
+> No chat icon at all? The extension isn't installed: open **Extensions**
+> (`Ctrl+Shift+X`) → search **"GitHub Copilot Chat"** → **Install**.
+
+---
+
 ## 🎯 The Golden Rule: YOU Are the Senior Developer
 
 AI-generated code is a **first draft from a junior developer** — not a finished answer.

@@ -81,6 +81,10 @@ written**, don't paraphrase it. The more exact your prompt, the more your code
 will look like everyone else's, which makes it much easier for your teacher to
 help you, no matter which tool you or they are using:
 
+> **Forgot how to open Copilot Chat?** Click the chat icon at the top of the
+> VS Code window, or press `Ctrl+Alt+I` (Windows/Linux) / `Ctrl+Cmd+I` (Mac).
+> See `week6/deck.md` for the full setup if it's still not showing up.
+
 > Create a Python file called weather.py that uses the requests library to talk to
 > the OpenWeatherMap current weather API.
 >
