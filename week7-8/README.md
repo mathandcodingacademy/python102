@@ -220,15 +220,42 @@ just copy them over your own file.
 
 ---
 
-## Push your work
+## Save this project in its own GitHub repo
 
-Before you push, open `weather.py` and check your real API key isn't about to go
-public. If this repo is or might become public, replace your real key with
-`"YOUR_API_KEY_HERE"` before committing — you can always paste the real one back in
-locally when you want to run it.
+This app is yours to keep — it doesn't belong inside the shared `python102` repo.
+`python102` is the class repo everyone in the course shares; pushing your project
+into it would mix your files in with everyone else's. Instead, give this project
+its own repo, the way you'd save a real project.
 
-```bash
-git add .
-git commit -m "Week 7/8 - weather module + mood GUI"
-git push
-```
+1. Go to **[github.com](https://github.com)** → click the **+** in the top right →
+   **New repository**.
+2. Name it something like `weather-mood-app`. Public or private, your choice.
+   Check **Add a README file**. Click **Create repository**.
+3. On the new repo's page, click the green **Code** button and copy the URL.
+4. Open a terminal and go **outside** the `python102` folder — for example:
+   ```bash
+   cd ~/Desktop
+   ```
+5. Clone your new, empty repo:
+   ```bash
+   git clone PASTE_YOUR_URL_HERE
+   cd weather-mood-app
+   ```
+6. Copy `weather.py` and `app.py` from `python102/week7-8/` into this new
+   `weather-mood-app` folder. Drag and drop the files in Finder/Explorer, or run:
+   ```bash
+   cp ~/code/python102/week7-8/weather.py ~/code/python102/week7-8/app.py .
+   ```
+   (adjust the path to wherever your `python102` folder actually is)
+7. Open the new folder in VS Code: `code .` — this is now a separate project
+   from `python102`.
+8. **Before you commit:** open `weather.py` and check your real API key isn't
+   about to go public. If this repo is or might become public, replace your real
+   key with `"YOUR_API_KEY_HERE"` before committing — you can always paste the
+   real one back in locally when you want to run it.
+9. Commit and push — this pushes to *your* new repo, not `python102`:
+   ```bash
+   git add .
+   git commit -m "Weather mood app"
+   git push
+   ```
