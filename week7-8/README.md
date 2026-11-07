@@ -75,12 +75,29 @@ your code talk to the API, the same job `curl` just did from the terminal. In
 the VS Code terminal, run:
 
 ```bash
-pip install requests
+python -m pip install requests
 ```
 
-If that command isn't recognized, try `pip3 install requests` instead. You
-should see a line ending in `Successfully installed requests-...`. You only
-need to do this once on your computer, not every time you run `weather.py`.
+If `python` isn't recognized on your computer, use `python3` instead:
+
+```bash
+python3 -m pip install requests
+```
+
+**Whichever one worked, remember it** — use that exact same word (`python` or
+`python3`) every time you install something or run a file for this project,
+including later in this guide. Mixing the two is the single most common cause
+of "it says requests isn't installed" even right after you installed it —
+that happens when `pip` installs requests for one Python, but a different
+Python runs your file.
+
+You should see a line ending in `Successfully installed requests-...`. You
+only need to install it once on your computer, not every time you run
+`weather.py`.
+
+**If you instead see an error containing `externally-managed-environment`, or
+a wall of text mentioning SSL / certificates, skip to Section 5 — Fixing
+before continuing** — both have exact fixes down there.
 
 Your API key is a secret, like a password. If it ends up written directly inside
 `weather.py`, and you later push that file to GitHub, anyone can see it and use
@@ -151,7 +168,7 @@ When the AI is done, open `weather.py` and check the top of the file says
 the AI wrote the key into `weather.py` anyway, delete that line and ask it to
 import `API_KEY` from `config` instead.
 
-Run it:
+Run it, using whichever of `python` / `python3` worked when you installed `requests`:
 
 ```bash
 python weather.py
@@ -211,7 +228,7 @@ Create a file called `app.py` in the same folder. Paste this prompt exactly:
 > closes instantly. Wire the button with `command=on_search`, no brackets —
 > `command=on_search()` with brackets runs it immediately instead of on click.
 
-Run it:
+Run it, same `python` / `python3` as before:
 
 ```bash
 python app.py
@@ -236,7 +253,11 @@ Find your symptom in the left column.
 | Symptom | Where it happens | Cause | Fix |
 |---|---|---|---|
 | `{"cod":401,...}` from curl, or `RuntimeError: Invalid API key` in Python | Step 2 or 3 | Key has a typo, or it's less than 2 hours old | Re-copy the key exactly. If it's new, wait and try again. |
-| `ModuleNotFoundError: No module named 'requests'` | Step 3 | `requests` isn't installed, or was installed for a different Python than the one running your file | Run `pip install requests` in the terminal (try `pip3 install requests` if `pip` isn't recognized) |
+| `ModuleNotFoundError: No module named 'requests'` (first time) | Step 3 | `requests` was never installed | Run `python -m pip install requests` (use `python3 -m pip install requests` if `python` isn't recognized) |
+| `ModuleNotFoundError: No module named 'requests'` (even though you just installed it) | Step 3 | You installed with `python` but ran the file with `python3` (or the reverse) — pip installed it for a different Python than the one running your file | Pick one of `python` / `python3` and use that exact word for BOTH installing and running, every time |
+| `command not found: python` (Mac/Linux), or `'python' is not recognized` (Windows) | Step 3 or 4 | Your computer only has `python3`, not plain `python` (common on Mac) | Use `python3` instead, for both installing and running: `python3 -m pip install requests` and `python3 weather.py` |
+| `error: externally-managed-environment` when you try to pip install | Step 3 | Your computer blocks installing packages directly into its system Python (common on newer Macs) | Create a private environment just for this project: `python3 -m venv .venv`, then turn it on — Mac/Linux: `source .venv/bin/activate`, Windows: `.venv\Scripts\activate` — your prompt should now start with `(.venv)`. With it on, run `pip install requests` and `python weather.py` as normal. Turn it on again (same activate command) every time you reopen the terminal for this project. |
+| `ssl.SSLCertVerificationError: ... unable to get local issuer certificate` | Step 3 | Your computer's Python doesn't yet trust the website's security certificate — common right after installing Python on a Mac | Run `pip install --upgrade certifi` (inside your `.venv` if you made one), then try again. Still failing after that? Ask your teacher — this is a one-time computer setup issue, not a mistake in your code. |
 | `TypeError: list indices must be integers` | Step 3 | Code wrote `data['weather']['main']` instead of `data['weather'][0]['main']` | `weather` is a list. Add `[0]` before `['main']`. |
 | A fake city crashes with `NoneType` errors later in the program | Step 3 | `get_weather` returns `None` on error instead of raising | Ask the AI: "change get_weather to raise ValueError instead of returning None" |
 | The app window flashes open and closes immediately | Step 4 | Missing `root.mainloop()` | Add `root.mainloop()` as the very last line of the file |
