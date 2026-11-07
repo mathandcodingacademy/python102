@@ -10,7 +10,8 @@ import requests
 # CONFIGURATION
 # Replace the placeholder with your real OpenWeatherMap API key.
 # Get one free at: https://openweathermap.org/ → API Keys
-# New keys take up to 10 minutes to activate.
+# New keys can take up to 2 hours to activate (usually 10-20 min).
+# Test your key with curl BEFORE running this file — see week7-8/README.md step 2.
 # ============================================================
 API_KEY = "YOUR_API_KEY_HERE"
 BASE_URL = "https://api.openweathermap.org/data/2.5/weather"
