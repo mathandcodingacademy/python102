@@ -40,7 +40,43 @@ never ends up on GitHub.
 
 Open the terminal in VS Code — the same terminal you've used all course.
 
-Paste this, replacing `YOUR_KEY_HERE` with your real key:
+**First, check what kind of terminal you have.** Look at the top-right of the
+terminal panel for a label — or just look at the prompt itself. If it says
+**PowerShell** or **pwsh** (the default on most Windows computers), follow the
+**PowerShell** instructions below. Everyone else (Mac, Linux, Windows Command
+Prompt, Git Bash) follows **Everyone else**.
+
+### PowerShell
+
+Plain `curl` in PowerShell is secretly a different tool in disguise (it's an
+alias for `Invoke-WebRequest`) and won't behave the way this guide expects.
+Use `curl.exe` instead — note the `.exe` — to get the real curl:
+
+```powershell
+curl.exe "https://api.openweathermap.org/data/2.5/weather?q=London&appid=YOUR_KEY_HERE&units=metric"
+```
+
+If `curl.exe` isn't found on your computer, use PowerShell's own command
+instead:
+
+```powershell
+Invoke-RestMethod "https://api.openweathermap.org/data/2.5/weather?q=London&appid=YOUR_KEY_HERE&units=metric"
+```
+
+`Invoke-RestMethod` prints the result differently from curl — as a list of
+labeled properties instead of one block of text, something like:
+
+```
+coord       : @{lon=-0.13; lat=51.51}
+weather     : {@{id=800; main=Clear; description=clear sky; icon=01d}}
+main        : @{temp=15.2; feels_like=14.6; temp_min=13.9; temp_max=16.1; ...}
+name        : London
+```
+
+That's still success — look for a `main` property with a `temp` number inside
+it. Skip the "What success looks like" box below; this is your version of it.
+
+### Everyone else
 
 ```bash
 curl "https://api.openweathermap.org/data/2.5/weather?q=London&appid=YOUR_KEY_HERE&units=metric"
@@ -49,7 +85,9 @@ curl "https://api.openweathermap.org/data/2.5/weather?q=London&appid=YOUR_KEY_HE
 **What success looks like:** one long line of text starting with `{"coord":` and
 containing `"main":{"temp":` somewhere in the middle, with a real number after `temp`.
 
-If you see that — your key works. Go to step 3.
+---
+
+If you saw a `temp` number (in either format above) — your key works. Go to step 3.
 
 If you see something else, use this table before touching any Python:
 
@@ -58,6 +96,7 @@ If you see something else, use this table before touching any Python:
 | `{"cod":401,"message":"Invalid API key..."}` | Key is wrong, or not active yet | Re-copy the key exactly — no extra spaces, no quotes included by accident. If the key is less than 2 hours old, wait and try again. |
 | `{"cod":"404","message":"city not found"}` | Your key **works** — the city name is the problem | Not a key issue. Try `q=Toronto` or another real city. |
 | `curl: command not found` | Rare — usually an old Windows setup | Make sure you're using the VS Code terminal, not a separate Command Prompt. Ask your teacher if it persists. |
+| Output shows `StatusCode`, `StatusDescription`, `Headers`, `Content` instead of JSON | You're in PowerShell and ran plain `curl`, which is really `Invoke-WebRequest` in disguise | Use `curl.exe` (with the `.exe`) or `Invoke-RestMethod` instead — see the PowerShell box above |
 | Nothing happens, it just hangs | No internet, or the network is blocking the request | Ask your teacher — this is a network problem, not a code problem. |
 
 Do not open your AI tool and start prompting it until `curl` shows you real weather
