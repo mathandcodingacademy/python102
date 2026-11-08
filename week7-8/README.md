@@ -176,6 +176,10 @@ help you, no matter which tool you or they are using:
 > VS Code window, or press `Ctrl+Alt+I` (Windows/Linux) / `Ctrl+Cmd+I` (Mac).
 > See `week6/deck.md` for the full setup if it's still not showing up.
 
+> This is a Python project. Also create a .gitignore file in this same folder
+> for a Python project, and make sure it includes config.py, so my API key
+> file can never be accidentally committed to git.
+>
 > Create a Python file called weather.py that uses the requests library to talk to
 > the OpenWeatherMap current weather API.
 >
@@ -207,10 +211,18 @@ help you, no matter which tool you or they are using:
 > Wrap the call in a try/except that catches ValueError and RuntimeError
 > separately, and prints the error message instead of crashing.
 
-When the AI is done, open `weather.py` and check the top of the file says
-`from config import API_KEY` — not a real key typed directly into the file. If
-the AI wrote the key into `weather.py` anyway, delete that line and ask it to
-import `API_KEY` from `config` instead.
+When the AI is done, check two things before running anything:
+
+- Open `weather.py` and confirm the top says `from config import API_KEY` —
+  not a real key typed directly into the file. If the AI wrote the key into
+  `weather.py` anyway, delete that line and ask it to import `API_KEY` from
+  `config` instead.
+- Open the new `.gitignore` file and confirm `config.py` is listed somewhere
+  inside it. If `.gitignore` wasn't created, or `config.py` isn't in it, tell
+  the AI: "add config.py to .gitignore."
+
+You'll bring this `.gitignore` along when you move the project to its own repo
+in the last section — no need to make a new one from scratch then.
 
 Run it, using whichever of `python` / `python3` worked when you installed `requests`:
 
@@ -360,13 +372,16 @@ its own repo, the way you'd save a real project.
    git clone PASTE_YOUR_URL_HERE
    cd weather-mood-app
    ```
-6. **Before you copy anything else, protect your key.** Create a file called
-   `.gitignore` in this new folder with one line inside it:
+6. **Before you copy anything else, protect your key.** Copy the `.gitignore`
+   the AI created back in step 3 — the same one you checked includes
+   `config.py` — into this new folder:
+   ```bash
+   cp ~/code/python102/week7-8/.gitignore .
    ```
-   config.py
-   ```
-   This tells git to never track or push `config.py`, no matter what. Do this
-   now, before step 7 — not after.
+   (adjust the path to wherever your `python102` folder actually is). If that
+   `.gitignore` somehow doesn't exist or doesn't list `config.py`, create one
+   now with a single line inside it: `config.py`. Do this now, before step 7 —
+   not after.
 7. Copy `weather.py`, `app.py`, and `config.py` from `python102/week7-8/` into
    this new `weather-mood-app` folder. Drag and drop the files in
    Finder/Explorer, or run:
