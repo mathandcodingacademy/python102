@@ -326,7 +326,7 @@ Find your symptom in the left column.
 | `TypeError: list indices must be integers` | Step 3 | Code wrote `data['weather']['main']` instead of `data['weather'][0]['main']` | `weather` is a list. Add `[0]` before `['main']`. |
 | A fake city crashes with `NoneType` errors later in the program | Step 3 | `get_weather` returns `None` on error instead of raising | Ask the AI: "change get_weather to raise ValueError instead of returning None" |
 | The app window flashes open and closes immediately | Step 4 | Missing `root.mainloop()` | Add `root.mainloop()` as the very last line of the file |
-| `ImportError: DLL load failed while importing _tkinter: An Application Control policy has blocked this file` | Step 4 | A school/work computer's security software (Windows Defender Application Control or similar) is blocking `_tkinter`, the file Python's GUI library needs — this is a locked-down-computer problem, not a bug in your code | `weather.py` still works fine on its own — the CLI version counts as done even if the GUI never runs on this machine. To actually get `app.py` running, ask your teacher or school IT to allow `_tkinter.pyd`, or try the same project on a personal, non-managed computer. Don't keep tweaking `app.py` trying to fix this — it's not a code problem. |
+| `ImportError: DLL load failed while importing _tkinter` / "Application Control policy has blocked this file" / Python blocked by Gatekeeper, antivirus, or SELinux | Step 4 | Security software on this computer is blocking the native file Python's GUI library needs — common on school/work-managed computers, not a bug in your code | Not a code fix — see **"Fixing: security software blocking tkinter"** right after this table |
 | Clicking Search does nothing — or it ran once automatically on startup | Step 4 | `command=on_search()` has brackets | Remove the brackets: `command=on_search` |
 | `ModuleNotFoundError: No module named 'weather'` | Step 4 | `app.py` and `weather.py` aren't in the same folder, or terminal is in the wrong folder | `cd` into the week7-8 folder before running `python app.py` |
 | Grey or white box appears behind text when the colour changes | Step 4 | Only `root.config(bg=...)` was updated, not every Label's `bg` | Ask the AI: "make sure every Label widget's bg is also updated to match the window background" |
@@ -338,6 +338,58 @@ Find your symptom in the left column.
 
 If nothing here matches, compare your file line by line against `weather.py` /
 `app.py` in this folder — those are working reference versions.
+
+### Fixing: security software blocking tkinter
+
+This happens when Windows Defender Application Control, Smart App Control, macOS
+Gatekeeper, or a school/work antivirus flags Python's native `_tkinter` file as
+untrusted and refuses to load it. `weather.py` (the CLI version) doesn't use
+`tkinter` and already proves your code works, so it's fine to stop there — only
+try these fixes if you also want the `app.py` window running, and only if you're
+allowed to change security settings on this computer.
+
+**Windows:**
+1. Open the Start menu, type `Windows Security`, and open the app.
+2. Go to **Virus & threat protection** → **Manage settings** (under Virus &
+   threat protection settings).
+3. Scroll to **Exclusions** → **Add or remove exclusions** → **Add an
+   exclusion** → **Folder**.
+4. Select your Python installation folder — it's the path right before
+   `\Lib\tkinter\__init__.py` in your error message (e.g. `C:\Python315`).
+5. Restart VS Code and run `python app.py` again.
+
+If **Exclusions** is greyed out, or Windows Security says a setting is "managed
+by your organization," this is a school/work-locked computer and you can't fix
+it yourself — skip to the note at the bottom.
+
+**macOS:**
+1. Open **System Settings** → **Privacy & Security**.
+2. Scroll down. If macOS blocked `python3`, you'll see a message like "`python3`
+   was blocked" right there, with an **Allow Anyway** button — click it, then
+   try running `app.py` again (you may need to click Allow a second time the
+   next time you run it).
+3. If nothing shows up there, remove the quarantine flag from your Python
+   install instead:
+   ```bash
+   xattr -d com.apple.quarantine $(which python3)
+   ```
+4. Run `python3 app.py` again.
+
+**Linux:**
+This is rare on Linux, but if an antivirus (common on school-managed laptops) or
+SELinux/AppArmor is involved:
+1. Check what blocked it: `sudo journalctl -k | tail -50`, and look for
+   `tkinter`, `denied`, or your Python path in the output.
+2. If SELinux is enforcing, ask your IT admin to add an exception rather than
+   disabling it yourself.
+3. If it's antivirus software, add your Python folder to its exclusions the
+   same way as the Windows steps above.
+
+**If none of this works, or you can't change these settings:** this is a
+locked-down-computer problem, not something wrong with your code. `weather.py`
+already proves the logic works — that's a complete deliverable on its own. Ask
+your teacher or school IT about getting `app.py` running, or try it again later
+on a personal, non-managed computer.
 
 ---
 
