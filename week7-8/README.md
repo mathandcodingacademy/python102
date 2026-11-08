@@ -85,6 +85,11 @@ curl "https://api.openweathermap.org/data/2.5/weather?q=London&appid=YOUR_KEY_HE
 **What success looks like:** one long line of text starting with `{"coord":` and
 containing `"main":{"temp":` somewhere in the middle, with a real number after `temp`.
 
+> There's more than one city called London in the world (England, and Ontario,
+> Canada, among others) — this command will match London, England by default.
+> That's fine, we're only checking that your key works, not which London it is.
+> Step 3 covers how to pick a specific one when you search your own cities.
+
 ---
 
 If you saw a `temp` number (in either format above) — your key works. Go to step 3.
@@ -197,10 +202,10 @@ help you, no matter which tool you or they are using:
 > else→"unknown".
 >
 > At the bottom, add `if __name__ == "__main__":` that asks the user to type a city
-> with `input()`, calls get_weather and get_mood, and prints each field from the
-> dict on its own line, plus the mood. Wrap the call in a try/except that catches
-> ValueError and RuntimeError separately, and prints the error message instead of
-> crashing.
+> with `input("Enter a city (e.g. Toronto or Paris,FR): ")`, calls get_weather and
+> get_mood, and prints each field from the dict on its own line, plus the mood.
+> Wrap the call in a try/except that catches ValueError and RuntimeError
+> separately, and prints the error message instead of crashing.
 
 When the AI is done, open `weather.py` and check the top of the file says
 `from config import API_KEY` — not a real key typed directly into the file. If
@@ -213,7 +218,16 @@ Run it, using whichever of `python` / `python3` worked when you installed `reque
 python weather.py
 ```
 
-Type a real city. **Check both of these before moving on:**
+Type a real city. **City names can be ambiguous** — there's more than one Paris,
+London, Cambridge, and Victoria in the world. If you just type the city name, the
+API guesses which one you mean, and it might not guess the one you expect:
+
+- Just a city name, like `Paris`, works fine for most cities
+- For common/ambiguous names, add a comma and a two-letter country code, like
+  `Paris,FR` (France) or `London,CA` (Ontario, not England) or `Victoria,CA`
+- The country code goes after the comma, no space: `City,XX` — not `City, XX`
+
+**Check both of these before moving on:**
 
 - [ ] A real city prints all 8 fields plus the mood — no red crash text
 - [ ] A fake city (try `asdkfj`) prints one clean line like `City 'asdkfj' not found.` — not a crash

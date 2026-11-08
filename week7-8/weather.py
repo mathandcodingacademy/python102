@@ -112,7 +112,7 @@ def get_mood(condition):
 # Quick test — run this file directly to check your API key works
 # ============================================================
 if __name__ == "__main__":
-    city = input("Enter a city to test: ").strip()
+    city = input("Enter a city (e.g. Toronto or Paris,FR): ").strip()
     try:
         weather = get_weather(city)
         mood = get_mood(weather["condition"])
